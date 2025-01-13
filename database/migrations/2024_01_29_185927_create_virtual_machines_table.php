@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignIdFor(Client::class);
             $table->foreignIdFor(Node::class);
-            $table->string('machine_id');
+            $table->string('machine_id')->nullable();
             $table->string('name');
             $table->string('type');
             $table->timestamps();
