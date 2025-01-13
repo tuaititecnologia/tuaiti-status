@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Datacenter extends Model
+class VirtualMachineStatus extends Model
 {
     use HasFactory, HasUuids;
-
-    public $guarded = [];
 }
