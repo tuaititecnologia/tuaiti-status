@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Client;
+use App\Models\Datacenter;
 use App\Models\Node;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('virtual_machines', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignIdFor(Datacenter::class);
             $table->foreignIdFor(Client::class);
             $table->foreignIdFor(Node::class);
             $table->string('machine_id')->nullable();

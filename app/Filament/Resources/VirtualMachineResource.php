@@ -14,6 +14,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -32,11 +33,19 @@ class VirtualMachineResource extends Resource
                 TextInput::make('name')
                     ->label('Name')
                     ->required(),
+                Select::make('type')
+                    ->label('Type')
+                    ->required()
+                    ->options([
+                        'qemu' => 'QEMU',
+                        'lxc' => 'LXC',
+                    ]),
+                TextInput::make('machine_id'),
                 Select::make('client_id')
                     ->label('Client')
                     ->required()
                     ->options(
-                        Client::all()->pluck('name', 'id')
+                        Client::all()->pluck('brand_name', 'id')
                     ),
                 Select::make('datacenter_id')
                     ->live()
@@ -49,7 +58,7 @@ class VirtualMachineResource extends Resource
                 Select::make('node_id')
                     ->label('Node')
                     ->required()
-                    ->placeholder(fn(Forms\Get $get): string => empty($get('country_id')) ? 'First select datacenter' : 'Select an option')
+                    ->placeholder(fn(Forms\Get $get): string => empty($get('datacenter_id')) ? 'First select datacenter' : 'Select an option')
                     ->options(function (Forms\Get $get): Collection {
                         return Node::where('datacenter_id', $get('datacenter_id'))->pluck('name', 'id');
                     }),
@@ -60,7 +69,11 @@ class VirtualMachineResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('client.brand_name'),
+                TextColumn::make('datacenter.name')
             ])
             ->filters([
                 //
