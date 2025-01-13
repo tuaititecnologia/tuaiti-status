@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Node extends Model
 {
     use HasFactory, HasUuids;
+
+    protected $guarded = [];
 }
