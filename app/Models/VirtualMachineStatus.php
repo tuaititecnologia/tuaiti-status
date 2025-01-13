@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class VirtualMachineStatus extends Model
 {
     use HasFactory, HasUuids;
+
+    protected $guarded = [];
 }

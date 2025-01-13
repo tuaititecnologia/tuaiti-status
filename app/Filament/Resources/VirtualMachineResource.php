@@ -30,6 +30,8 @@ class VirtualMachineResource extends Resource
     {
         return $form
             ->schema([
+                TextInput::make('id')
+                    ->disabled(),
                 TextInput::make('name')
                     ->label('Name')
                     ->required(),
