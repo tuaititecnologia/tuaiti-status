@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\VirtualMachine;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +14,7 @@ return new class extends Migration
     {
         Schema::create('virtual_machine_statuses', function (Blueprint $table) {
             $table->uuid('id');
-            $table->foreignUuid('virtual_machine_id')
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->foreignIdFor(VirtualMachine::class);
             $table->string('type');
             $table->string('value');
             $table->string('unit');
